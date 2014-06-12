@@ -24,4 +24,4 @@ def secure_token
   end
 end
 
-test1::Application.config.secret_key_base = secure_token
+Test1::Application.config.secret_key_base = secure_token
