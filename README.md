@@ -1,6 +1,6 @@
 == README
 # Ruby on Rails チュートリアル：サンプルアプリケーション
-
+test 1
 これは、以下のためのサンプルアプリケーションです。
 [*Ruby on Rails Tutorial*](http://railstutorial.jp/)
 by [Michael Hartl](http://michaelhartl.com/).
