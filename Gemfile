@@ -65,7 +65,7 @@ group :test, :development do
   gem 'pry-stack_explorer'
 
   if RUBY_VERSION >= '2.0.0'
-    gem 'pry-byebug'
+    gem 'pry-byebug', github: 'deivid-rodriguez/pry-byebug'
   else
     # 以下はRuby1.9の時のみ使う(pry-byebugの代わりに)
     # debuggerは1.9以下でしか動作しない, remote は byebug で使えないようになった
@@ -88,7 +88,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails', '3.0.4'
- 
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -115,4 +115,7 @@ gem 'spring',        group: :development
 gem 'execjs'
 gem 'therubyracer', '0.12.1'
 gem 'libv8', '3.16.14.3'
+
+path "vendor/bundle"
+
 
