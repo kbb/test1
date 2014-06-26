@@ -24,4 +24,7 @@ doc/
 .idea
 .secret
 
+### add to ignore vender/
+vendor/bundle/*
+
 
