@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 # ruby '2.0.0'
 #ruby-gemset=railstutorial_rails_4_0
 
+#ruby version
+ruby '2.1.2p95'
+
 # gem 'rails', '4.0.5'
 gem 'rails', '4.1.1' #new added for dealing with activesupport
 gem 'bootstrap-sass', '2.3.2.0'
