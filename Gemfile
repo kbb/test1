@@ -16,21 +16,31 @@ gem 'bootstrap-will_paginate', '0.0.9'
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails'
   # The following optional lines are part of the advanced setup.
-  #gem 'guard-rspec', '2.5.0'
-  #gem 'spring-commands-rspec'
+  gem 'guard-rspec', '2.5.0'
+
   # gem 'spork-rails', '4.0.0'
   # gem 'guard-spork', '1.5.0'
   # gem 'childprocess', '0.3.6'
-end
+  gem "shoulda-matchers"
 
-group :test do
   gem 'selenium-webdriver', '2.35.1'
   gem 'capybara', '2.1.0'
   gem 'factory_girl_rails', '4.2.1'
   gem 'cucumber-rails', '1.4.0', :require => false
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
+
+  gem 'spring'
+  gem 'spring-commands-rspec'
+
+  #Rspec３以降への対応用
+  gem "rspec-collection_matchers"
+
+end
+
+group :test do
+
 
   # Uncomment this line on OS X.
   # gem 'growl', '1.0.3'
@@ -101,7 +111,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+# gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
