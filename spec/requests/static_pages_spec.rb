@@ -55,6 +55,7 @@ describe "Static pages" do
   describe "About page" do
     before { visit about_path }
 
+    # let(:heading) {'About Us'}
     let(:heading) {'About Us'}
 
     # it { should have_content('About Us') }
@@ -74,6 +75,17 @@ describe "Static pages" do
     it_should_behave_like "all static pages"
 
   end
+
+  it  "Links test" do
+      visit root_path
+
+      click_link "About"
+      expect(page).to have_title(full_title('About Us'))
+
+      click_link "Help"
+      expect(page).to have_title(full_title('Help'))
+  end
+
 
 end
 
