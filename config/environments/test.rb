@@ -37,4 +37,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+######## Start   Chapter7 FactoryGirl
+  # bcrypt'のコスト関数を下げることでテストの速度を向上させる。
+  ActiveModel::SecurePassword.min_cost = true
+######## End   Chapter7 FactoryGirl
+
+
 end
