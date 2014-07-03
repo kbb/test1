@@ -23,7 +23,7 @@ group :development, :test do
   # gem 'spork-rails', '4.0.0'
   # gem 'guard-spork', '1.5.0'
   # gem 'childprocess', '0.3.6'
-  gem "shoulda-matchers"
+  gem 'shoulda-matchers'
 
   gem 'selenium-webdriver', '2.35.1'
   gem 'capybara', '2.1.0'
@@ -35,8 +35,11 @@ group :development, :test do
   gem 'spring-commands-rspec'
 
   #Rspec３以降への対応用
-  gem "rspec-collection_matchers"
+  gem 'rspec-collection_matchers'
 
+  #for Tunning
+   gem 'rack-mini-profiler'
+   gem 'bullet'
 end
 
 group :test do
