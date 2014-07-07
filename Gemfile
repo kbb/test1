@@ -42,7 +42,7 @@ group :development, :test do
    gem 'bullet'
 end
 
-group :test do
+# group :test do
 
 
   # Uncomment this line on OS X.
@@ -55,7 +55,7 @@ group :test do
   # gem 'rb-notifu', '0.0.4'
   # gem 'win32console', '1.3.2'
    # gem 'wdm', '0.1.0'
-end
+# end
 
 # gem 'sass-rails', '4.0.2'
 # gem 'uglifier', '2.1.1'

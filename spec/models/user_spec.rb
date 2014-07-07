@@ -14,7 +14,7 @@ describe User do
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
-
+  it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
@@ -114,18 +114,24 @@ describe User do
 
   end
 
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
+
 ######## Start   Chapter7 FactoryGirl
 describe "User pages" do
 
   subject { page }
 
-  # describe "profile page" do
-  #   let(:user) { FactoryGirl.create(:user) }
-  #   before { visit user_path(user) }
+  describe "profile page" do
+    let(:user) { FactoryGirl.create(:user) }
+    before { visit user_path(user) }
 
-  #   it { should have_content(user.name) }
-  #   it { should have_title(user.name) }
-  # end
+    it { should have_content(user.name) }
+    it { should have_title(user.name) }
+  end
 
   describe "signup page" do
     before { visit signup_path }
@@ -133,6 +139,8 @@ describe "User pages" do
     it { should have_content('Sign up') }
     it { should have_title(full_title('Sign up')) }
   end
+
+
 end
 ######## End   Chapter7 FactoryGirl
 
@@ -149,7 +157,7 @@ end
       end
     end
 
-    describe "with valid information" do
+    describe "with valid information at user_spec" do
       before do
         fill_in "Name",         with: "Example User"
         fill_in "Email",        with: "user@example.com"
@@ -160,7 +168,20 @@ end
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
+
+      describe "after saving the user" do
+        before { click_button submit }
+        let(:user) { User.find_by(email: 'user@example.com') }
+
+        it { should have_link('Sign out') }
+        it { should have_title(user.name) }
+        # it { should have_title("Example User") }
+        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+      end
+
     end
+
+
   end
 
 
