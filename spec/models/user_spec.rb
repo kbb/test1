@@ -113,48 +113,9 @@ describe User do
     end
   end
 
-
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
     it { expect(@user.remember_token).not_to be_blank }
   end
-
-######## Start   Chapter7 FactoryGirl
-describe "User pages" do
-
-  subject { page }
-
-  describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
-
-    it { should have_content(user.name) }
-    it { should have_title(user.name) }
-  end
-
-  describe "signup page" do
-    before { visit signup_path }
-
-    it { should have_content('Sign up') }
-    it { should have_title(full_title('Sign up')) }
-  end
-
-
-end
-######## End   Chapter7 FactoryGirl
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end

@@ -13,8 +13,6 @@ describe "Authentication" do
 
   end
 
-
-
   describe "signin" do
     before { visit signin_path }
 
