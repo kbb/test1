@@ -122,6 +122,19 @@ describe "Authentication" do
           end
         end
      end
+     ####### Start "as non-admin user"
+      describe "as non-admin user" do
+        let(:user) { FactoryGirl.create(:user) }
+        let(:non_admin) { FactoryGirl.create(:user) }
+
+        before { sign_in non_admin, no_capybara: true }
+
+        describe "submitting a DELETE request to the Users#destroy action" do
+          before { delete user_path(user) }
+          specify { expect(response).to redirect_to(root_path) }
+        end
+      end
+      ####### End  "as non-admin user"
    end
     #### End "authorization"
 
@@ -130,8 +143,11 @@ end
 
 
 
+  ####### Start ""
+  ####### End ""
 
-
+  ####### Start ""
+  ####### End ""
 
 
 
