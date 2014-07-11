@@ -104,7 +104,7 @@ describe "Authentication" do
       end
 
       describe "for non-signed-in users" do
-        let(:user) { FactoryGirl.create(:user) }
+        # let(:user) { FactoryGirl.create(:user) }
 
         describe "when attempting to visit a protected page" do
           before do
@@ -119,21 +119,37 @@ describe "Authentication" do
             it "should render the desired protected page" do
               expect(page).to have_title('Edit user')
             end
+          ####Start chap 9 list 9.51
+            describe "when signing in again" do
+              before do
+                delete signout_path
+                visit signin_path
+                fill_in "Email",    with: user.email
+                fill_in "Password", with: user.password
+                click_button "Sign in"
+              end
+
+              it "should render the default (profile) page" do
+                expect(page).to have_title(user.name)
+              end
+            end
+          ####End chap 9 list 9.51 
+
           end
         end
      end
      ####### Start "as non-admin user"
-      describe "as non-admin user" do
-        let(:user) { FactoryGirl.create(:user) }
-        let(:non_admin) { FactoryGirl.create(:user) }
+      # describe "as non-admin user" do
+      #   let(:user) { FactoryGirl.create(:user) }
+      #   let(:non_admin) { FactoryGirl.create(:user) }
 
-        before { sign_in non_admin, no_capybara: true }
+      #   before { sign_in non_admin, no_capybara: true }
 
-        describe "submitting a DELETE request to the Users#destroy action" do
-          before { delete user_path(user) }
-          specify { expect(response).to redirect_to(root_path) }
-        end
-      end
+      #   describe "submitting a DELETE request to the Users#destroy action" do
+      #     before { delete user_path(user) }
+      #     specify { expect(response).to redirect_to(root_path) }
+      #   end
+      # end
       ####### End  "as non-admin user"
    end
     #### End "authorization"
