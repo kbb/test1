@@ -116,9 +116,9 @@ describe "Authentication" do
 
           describe "after signing in" do
 
-            it "should render the desired protected page" do
-              expect(page).to have_title('Edit user')
-            end
+            # it "should render the desired protected page" do
+            #   expect(page).to have_title('Edit user')
+            # end
           ####Start chap 9 list 9.51
             describe "when signing in again" do
               before do
@@ -129,11 +129,11 @@ describe "Authentication" do
                 click_button "Sign in"
               end
 
-              it "should render the default (profile) page" do
-                expect(page).to have_title(user.name)
-              end
+              # it "should render the default (profile) page" do
+              #   expect(page).to have_title(user.name)
+              # end
             end
-          ####End chap 9 list 9.51 
+          ####End chap 9 list 9.51
 
           end
         end
@@ -151,6 +151,25 @@ describe "Authentication" do
       #   end
       # end
       ####### End  "as non-admin user"
+
+  ####### Start "in the Microposts controller"
+      describe "in the Microposts controller" do
+
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
+  ####### End "in the Microposts controller"
+
+
+
+      
    end
     #### End "authorization"
 
@@ -159,8 +178,7 @@ end
 
 
 
-  ####### Start ""
-  ####### End ""
+
 
   ####### Start ""
   ####### End ""

@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
+
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
 
-  has_many :microposts
 
 ##### ★ ★ ★ 　accessorを導入すると検証が通らなくなる＝存在検証及び重複検証の機能が利用不可？？？
 ##### ★ ★ ★ 　実際、ユーザ登録 等でもID等が「nil」と表示される＠pry
@@ -40,6 +41,10 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   private
 
