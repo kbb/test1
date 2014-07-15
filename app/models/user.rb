@@ -1,35 +1,19 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
-
-	before_save { self.email = email.downcase }
-	before_create :create_remember_token
-
-
-##### ★ ★ ★ 　accessorを導入すると検証が通らなくなる＝存在検証及び重複検証の機能が利用不可？？？
-##### ★ ★ ★ 　実際、ユーザ登録 等でもID等が「nil」と表示される＠pry
-	# attr_accessor :name, :email
-
- # 	validates :name, presence: true, length: {maximum: 20}
-
- # 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
- # 	validates :email,
- # 		 presence: true,
- # 		 uniqueness: true, #{ case_sensitive: false }
- # 		 format: { with: VALID_EMAIL_REGEX }
-
- # 	validates :password, length: { minimum: 6 }
- 	validates_confirmation_of :password, if: lambda { |m| m.password.present? }
- # 	has_secure_password
-
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_users, through: :relationships, source: :followed
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name:  "Relationship",
+                                   dependent:   :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
   before_save { self.email = email.downcase }
-  validates :name, presence: true, length: { maximum: 20 }
+  before_create :create_remember_token
+  validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-    validates :email, presence:   true,
-                    format:     { with: VALID_EMAIL_REGEX },
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }
-
 
   has_secure_password
 
@@ -43,14 +27,35 @@ class User < ActiveRecord::Base
 
 
   def feed
-    Micropost.where("user_id = ?", id)
+    # Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
   end
+
+  def following?(other_user)
+    self.relationships.find_by(followed_id: other_user.id)
+  end
+
+  def follow!(other_user)
+    self.relationships.create!(followed_id: other_user.id)
+  end
+
+  def unfollow!(other_user)
+    self.relationships.find_by(followed_id: other_user.id).destroy
+  end
+
 
   private
 
     def create_remember_token
       self.remember_token = User.encrypt(User.new_remember_token)
     end
+
+
+
+
+
+
+
 
 
 
